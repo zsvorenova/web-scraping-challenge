@@ -24,9 +24,9 @@
                         <h1>
                             Latest Mars News
                         </h1>
-                        <h3>News title</h3>
+                        <h3>{{ mars.news_title }}</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+                            {{ mars.news_p }}
                         </p>
                     </div>
                 </div>
@@ -34,15 +34,13 @@
                     <div class="col-md-9">
                         <h2>
                             Featured Mars Image
-                        </h2><img alt="Featured Mars Image" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" />
+                        </h2><img alt="Featured Mars Image" src= {{ mars.featured_image_url }} />
                     </div>
                     <div class="col-md-3">
                         <h3>
                             Mars Facts
                         </h3>
-                        <table class="table">
-                        
-                        </table>
+                            {{ mars.facts_html | safe}}
                     </div>
                 </div>
                 <div class="row">
@@ -52,70 +50,19 @@
                         </h3>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card bg-default">
-                            <h5 class="card-header">
-                                There should be nothing
-                            </h5>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    here should be picture
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                Name of hemisphere
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <h5 class="card-header">
-                                Card title
-                            </h5>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Card content
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                Card footer
-                            </div>
+                {% for movie in list %}
+
+                <div class="col-lg-4">
+                    <div class="card" style="width: 20rem;">
+                        <div class="card-body">
+                        <h4 class="card-title">{{ movie }}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Is a top five favorite movie</h6>
+                        <p class="card-text">Search <a href="https://www.imdb.com/">IMDB</a> for more info!</p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <h5 class="card-header">
-                                Card title
-                            </h5>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Card content
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                Card footer
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <h5 class="card-header">
-                                Card title
-                            </h5>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Card content
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                Card footer
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+          {% endfor %}
             </div>
         </div>
     </div>

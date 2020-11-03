@@ -1,6 +1,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import pandas as pd
+import time
 
 
 def init_browser():
@@ -18,6 +19,7 @@ def scrape():
     # LATEST MARS NEWS
     url_news = 'https://mars.nasa.gov/news'
     browser.visit(url_news)
+    time.sleep(3)
     # Scrape page into Soup
     html = browser.html
     soup = bs(html, "html.parser")
@@ -29,6 +31,7 @@ def scrape():
     # MARS FEATURED IMAGE
     url_images='https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url_images)
+    time.sleep(1)
     # Scrape page into Soup
     html = browser.html
     soup = bs(html, "html.parser")
@@ -39,32 +42,35 @@ def scrape():
     # MARS FACTS
     url_facts = 'https://space-facts.com/mars/'
     tables=pd.read_html(url_facts)
+    time.sleep(1)
     mars_facts = tables[0]
     mars_facts.columns = ['Description', 'Mars']
-    mars_facts.set_index('Fact', inplace=True)
-    facts_html=mars_facts.to_html()
+    mars_facts.set_index('Description', inplace=True)
+    facts_html=mars_facts.to_html().replace('\n', '')
 
     # MARS HEMISPHERES
     url_hems = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     base_url='https://astrogeology.usgs.gov'
     browser.visit(url_hems)
+    time.sleep(3)
     html = browser.html
     # Parse HTML with Beautiful Soup
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs(html, 'html.parser')
 
     # get links for each hemisphere page:
     results=soup.find('div', class_="collapsible results").find_all('div', class_="item")
-    hem_url_lists=[]
+    hem_url_list=[]
     for result in results:
         hem_link=result.find('a')['href']
-        hem_url_lists.append(base_url+hem_link)
+        hem_url_list.append(base_url+hem_link)
 
     hemisphere_image_urls = []
-    for hem_url in hem_urls_list:
+    for hem_url in hem_url_list:
         # open each page and parse HTML with Beautiful Soup
         browser.visit(hem_url)
+        time.sleep(1)
         html = browser.html
-        soup = BeautifulSoup(html, 'html.parser')
+        soup = bs(html, 'html.parser')
         
         #find image link and title
         img_link=soup.find('img', class_="wide-image")['src']
@@ -83,7 +89,7 @@ def scrape():
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url,
-        "facts_html": facts_html;
+        "facts_html": facts_html,
         "hemisphere_image_urls": hemisphere_image_urls
     }
 
