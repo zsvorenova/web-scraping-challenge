@@ -46,13 +46,13 @@ def scrape():
     mars_facts = tables[0]
     mars_facts.columns = ['Description', 'Mars']
     mars_facts.set_index('Description', inplace=True)
-    facts_html=mars_facts.to_html().replace('\n', '').replace('dataframe','table')
+    facts_html=mars_facts.to_html().replace('\n', '').replace('dataframe','table table-bordered table-striped table-sm').replace('border="1"','')
 
     # MARS HEMISPHERES
     url_hems = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     base_url='https://astrogeology.usgs.gov'
     browser.visit(url_hems)
-    time.sleep(3)
+    time.sleep(1)
     html = browser.html
     # Parse HTML with Beautiful Soup
     soup = bs(html, 'html.parser')

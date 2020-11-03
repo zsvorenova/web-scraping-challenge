@@ -1,0 +1,21 @@
+h1 {
+    font-size: xxx-large;
+    font-weight: bold;
+}
+#img-featured {
+    padding: 10px;
+    border: 2px solid black;
+
+}
+
+.card {
+    padding: 10px;
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.table {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+}
